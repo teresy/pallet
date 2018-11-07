@@ -35,7 +35,7 @@
       (if argkey
         (let [[_ & [keybase]] (re-find #"^--?(.*)" argkey)]
           (cond
-            (= keybase nil) (recur r (update-in cmdmap [rest-str] conj argkey))
+            (nil? keybase) (recur r (update-in cmdmap [rest-str] conj argkey))
             (= keybase "")  (update-in cmdmap [rest-str] #(apply conj % r))
             :else (if-let [found (key-data keybase)]
                     (if (= \? (last (:sym found)))
